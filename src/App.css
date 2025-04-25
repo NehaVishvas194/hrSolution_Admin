@@ -1,0 +1,523 @@
+:root {
+  --color-212529: #01013a;
+  --colorYellow: #dab95c;
+  --colorBlue: #02094d;
+  --color-e52e2e: #e52e2e;
+  --color-828599: #8a8d9e;
+  --color-3d464d: #ed464d;
+  --color-c3d4da: #ced4da;
+}
+
+.rmsc .dropdown-container {
+  z-index: 2;
+  position: relative !important;
+}
+
+.green {
+  color: var(--color-47ad24);
+  font-size: 14px;
+  font-family: Roboto !important;
+}
+
+.red {
+  color: var(--color-212529);
+  font-size: 14px;
+  font-family: Roboto !important;
+}
+
+.quill {
+  background-color: white;
+}
+
+.form-control {
+  box-shadow: none;
+  border-color: var(--color-c3d4da);
+}
+
+.title {
+  font: 28px;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+
+.sub-title {
+  font: 24px;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+
+.desc {
+  font: 14px;
+  font-family: Roboto !important;
+  color: var(--color-828599);
+}
+
+.switchBase {
+  color: #4caf50;
+}
+
+.switchBase.checked {
+  color: #4caf50;
+}
+
+.switchBase.checked + .track {
+  background-color: #4caf50;
+}
+
+.track {
+  background-color: #ccc;
+}
+
+.loginBg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-image: url(./images/loginBg.jpeg);
+  padding: 100px 0px;
+  background-size: 100% 100%;
+  background-blend-mode: overlay;
+  background-color: rgb(0 0 0 / 45%);
+  height: 100vh;
+}
+
+.dropdown.topRightParent ul {
+  /* transform: translate(-180px, 56px) !important; */
+  border: 1px solid #c09b30;
+  padding-bottom: 30px;
+  padding-top: 0px;
+}
+.page-title {
+  padding: 9px 0px !important;
+  margin: 0px 0px 0px 0px !important;
+}
+.dropdown.topRightParent button:hover {
+  background-color: unset !important;
+}
+
+.dropdown.topRightParent button:focus {
+  box-shadow: unset !important;
+}
+
+.dropdown.topRightParent button {
+  position: relative;
+}
+
+.scrollNoti {
+  width: 400px;
+}
+
+.topRightParent h5 {
+  padding: 10px 20px 10px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #c09b30;
+  color: #fff;
+  margin-bottom: 0px;
+}
+
+.scrollNoti {
+  padding: 20px 20px 0px 20px !important;
+}
+
+.topRightParent h6 {
+  color: #c09b30 !important;
+}
+
+.topRightParent p {
+  margin-bottom: 0px;
+}
+
+.topRightParent i {
+  font-size: 22px;
+}
+
+span.badgesTop {
+  color: #fff;
+  background: #ff5353;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  height: 18px;
+  width: 16px;
+  display: inline-block;
+  position: absolute;
+  top: 1px;
+  left: 21px;
+  padding-bottom: 16px;
+  padding-left: 2px;
+  text-align: center;
+}
+
+/* 9/5/2024 */
+.sm-logo {
+  display: none;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  background: #fff;
+  border: 1px solid var(--colorYellow) !important;
+  border-radius: 5px;
+}
+
+button.MuiButtonBase-root {
+  background: var(--colorYellow) !important;
+  border: unset;
+  color: #fff !important;
+  /* / margin-right: 25px; / */
+}
+
+/* .MuiPaper-root.MuiPaper-elevation {
+  padding-bottom: 20px;
+} */
+
+button.p-1.rounded.pageNext svg,
+.rounded.pagePre svg {
+  fill: #fff !important;
+}
+
+button.p-1.rounded.pageNext {
+  background: var(--colorYellow);
+  border: unset;
+  margin-left: 5px;
+}
+
+.rounded.pagePre {
+  background: var(--colorBlue);
+  border: unset;
+  margin-right: 5px;
+}
+
+.text-primary {
+  color: var(--colorYellow) !important;
+}
+
+p.text-success {
+  color: var(--colorYellow) !important;
+}
+
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
+  color: var(--colorYellow) !important;
+}
+
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
+  + .MuiSwitch-track {
+  background-color: var(--colorYellow) !important;
+}
+
+th {
+  background: var(--colorYellow) !important;
+  color: #fff !important;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  border: unset !important;
+}
+
+.css-1ex1afd-MuiTableCell-root {
+  border-bottom: unset !important;
+  padding: 0px;
+}
+
+.jobPostingDrop svg {
+  fill: var(--colorYellow);
+}
+
+td.MuiTableCell-root a {
+  color: var(--colorYellow);
+}
+
+.badgesTop {
+  color: #fff;
+  background: #ff5353;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: 31px;
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+/* width */
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root::-webkit-scrollbar {
+  width: 20px;
+  height: 5px;
+}
+
+/* Track */
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(182, 182, 182);
+  border-radius: 10px;
+}
+
+/* Handle */
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root::-webkit-scrollbar-thumb {
+  background: rgb(182, 182, 182);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root::-webkit-scrollbar-thumb:hover {
+  background: rgb(182, 182, 182);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--colorYellow);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--colorYellow);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colorYellow);
+}
+
+/* for dropdown main layout */
+:where(.css-dev-only-do-not-override-1hyej8k).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: rgb(192, 156, 50) !important;
+}
+
+:where(.css-1hyej8k).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: #e8c361 !important;
+}
+
+.jobDesSelect .MuiInputBase-root {
+  width: 200px;
+}
+
+.profile_img img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.profile_img {
+  display: flex;
+  align-items: center;
+}
+
+.jobtable thead tr th:nth-child(13) {
+  min-width: 155px;
+}
+
+.jobdetailtd p {
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.edit-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding-left: 6px;
+  font-size: 17px;
+}
+
+.edit-icon i {
+  color: #02094d;
+}
+
+.client_details h2 {
+  font-size: 25px;
+  font-weight: 700;
+  color: #02094d;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.client_details p {
+  color: #727272;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+.client_details .inner_section {
+  padding: 10px 20px;
+}
+
+.client_details .row {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.client_details .card-body {
+  padding: 30px;
+}
+
+/* main.ant-layout-content.css-dev-only-do-not-override-1pg9a38 {
+  margin: 50px 24px !important;
+  min-height: 280px !important;
+} */
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  background-color: white !important;
+}
+
+button.w-25.px-3.py-2.btn.btn-primary.mt-3 {
+  background-color: var(--colorYellow);
+  border-color: var(--colorYellow);
+}
+
+button.w-50.px-4.py-2.btn.btn-primary.mt-1 {
+  background-color: var(--colorYellow);
+  border-color: var(--colorYellow);
+}
+
+button.mx-4.px-5.py-2.mt-4.btn.btn-primary {
+  background-color: var(--colorYellow);
+  border-color: var(--colorYellow);
+}
+
+button.py-2.mx-3.px-5.btn.btn-primary.mt-4 {
+  background-color: var(--colorYellow);
+  border-color: var(--colorYellow);
+}
+
+button.px-5.py-2.btn.btn-primary.mt-1 {
+  background-color: var(--colorYellow);
+  border-color: var(--colorYellow);
+}
+
+.btn-primary {
+  background-color: var(--colorYellow) !important;
+  border-color: var(--colorYellow) !important;
+}
+
+/* .css-knqc4i-MuiDialogActions-root{
+  padding:8px 25px !important;
+} */
+/* .css-1ex1afd-MuiTableCell-root {
+  padding: 20px !important;
+} */
+/* .css-19midj6 {
+  padding: 0px !important;
+} */
+
+.wpWrapper {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 10px;
+}
+
+.wpWrapper .card {
+  border: 0;
+}
+
+:where(.css-dev-only-do-not-override-1pg9a38).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: #02094d;
+}
+
+.main_container {
+  padding: 25px !important;
+  background-color: #fff;
+  /* max-height: 69vh;
+  overflow-x: hidden;
+  overflow-y: auto; */
+}
+
+.star_Sec {
+  display: flex;
+}
+
+.css-mhc70k-MuiGrid-root > .MuiGrid-item {
+  padding: 0;
+}
+
+/* aside.ant-layout-sider.ant-layout-sider-dark {
+  background: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+} */
+
+.css-19kzrtu {
+  padding: 24px 0 0 0 !important;
+}
+
+table thead th {
+  white-space: nowrap !important;
+}
+/* 
+ul.ant-menu.ant-menu-root {
+  background: #fff !important;
+  max-height: 80vh;
+  overflow: auto;
+} */
+
+.main_section {
+  max-height: 91vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:where(.css-dev-only-do-not-override-1pg9a38).ant-layout
+  .ant-layout-sider-children {
+  height: 100vh !important;
+  overflow-y: auto !important;
+  margin-top: -0.1px !important;
+  padding-top: 0.1px !important;
+}
+
+html{
+  overflow: hidden;
+}
+
+:where(.css-1pg9a38).ant-layout .ant-layout-sider-children {
+  height: 100vh !important;
+  margin-top: -0.1px !important;
+  padding-top: 0.1px !important;
+  overflow-y: auto !important;
+}
+
+button#simple-tab-0,
+button#simple-tab-1,
+button#simple-tab-2,
+button#simple-tab-3 {
+  background: none !important;
+  color: var(--color-212529) !important;
+  font-weight: 600 !important;
+}
+button#simple-tab-0.Mui-selected,
+button#simple-tab-1.Mui-selected,
+button#simple-tab-2.Mui-selected,
+button#simple-tab-3.Mui-selected {
+  background: none !important;
+  color: var(--colorYellow) !important;
+  font-weight: 600 !important;
+}
+
+.css-1aquho2-MuiTabs-indicator {
+  color: var(--colorYellow) !important;
+  font-weight: 600 !important;
+}

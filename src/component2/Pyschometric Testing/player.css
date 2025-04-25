@@ -1,0 +1,35 @@
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .road-container {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background-color: #333;
+    border: 2px solid #fff;
+  }
+  
+  .car-container {
+    position: absolute;
+    bottom: 0;
+    font-size: 36px;
+  }
+  
+  .obstacle {
+    position: absolute;
+    bottom: 100%;
+    font-size: 36px;
+  }
+  
+  .game-over {
+    position: absolute;
+    top: 50%;
+    font-size: 36px;
+    color: red;
+  }
+  
