@@ -140,17 +140,14 @@ export default function Location() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${baseUrl}getcms_headquarter_admin/${userid}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${baseUrl}getcms_headquarter_admin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data.Details);
-      setData(response.data.Details);
+      setData(response.data.Details[0]);
     } catch (error) {
       // toast.error('Error fetching data:', error.response.data);
       toast.error(error.response.data.message || "Error fetching data:");
@@ -165,10 +162,10 @@ export default function Location() {
     }));
   };
 
-  const handleApi = async () => {
+  const handleApi = async (id) => {
     try {
       const response = await axios.post(
-        `${baseUrl}cmsHeadquarter/${userid}`,
+        `${baseUrl}cmsHeadquarter/${id}`,
         {
           company_address: data1.company_address,
           location: data1.location,
@@ -181,9 +178,9 @@ export default function Location() {
         }
       );
       console.log(response.data);
-      toast.success(response.data.message);
       fetchData();
       setOpen(false);
+      toast.success(response.data.message);
     } catch (error) {
       toast.error(error.response.data.message || "Error posting data");
     }
@@ -192,6 +189,7 @@ export default function Location() {
   const handleOpen = () => {
     // Populate the form fields with the existing data when opening the modal
     setData1({
+      _id: data._id,
       company_address: data.company_address || "",
       location: data.location || "",
     });
@@ -199,7 +197,6 @@ export default function Location() {
   };
 
   const handleClose = () => setOpen(false);
-
   return (
     <>
       <div className="container main_container">
@@ -247,7 +244,7 @@ export default function Location() {
               />
               <Button
                 variant="contained"
-                onClick={handleApi}
+                onClick={() => handleApi(data1._id)}
                 style={{
                   backgroundColor: "#2b6166",
                   color: "#ffffff",

@@ -66,12 +66,16 @@ export default function Labourlaw() {
                     value={value}
                     onChange={handleChange}
                     aria-label="basic tabs example"
-                    sx={{ backgroundColor: "#F5F5F5" }} 
+                    sx={{ backgroundColor: "#F5F5F5" }}
                   >
                     <Tab
                       label="EOSB Computation"
                       {...a11yProps(0)}
-                      sx={{ backgroundColor: "blue !important", color: "white" }} 
+                      // sx={{
+                      //   backgroundColor: "blue !important",
+                      //   color: "white",
+                      // }}
+                      className="tabsColor"
                     />
                     <Tab
                       label="Leave Allowance"

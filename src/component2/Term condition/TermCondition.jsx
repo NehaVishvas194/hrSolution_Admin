@@ -44,7 +44,7 @@
 //        Heading: heading,
 //        Description: description12,
 //      };
-  
+
 //      axios.post(`${baseUrl}create_term_condition/${userid}`, postdata)
 //        .then((response) => {
 //          console.log('Response:', response); // Add this line for debugging
@@ -113,47 +113,47 @@
 //  };
 
 //  export default TermCondition;
-import React, { useEffect, useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { baseUrl } from '../../features/Api/BaseUrl';
+import React, { useEffect, useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { baseUrl } from "../../features/Api/BaseUrl";
 
 const TermCondition = () => {
-  const [heading, setHeading] = useState('');
-  const [description12, setDescription12] = useState('');
+  const [heading, setHeading] = useState("");
+  const [description12, setDescription12] = useState("");
 
   useEffect(() => {
     getdataapi();
   }, []);
 
-  const userid = localStorage.getItem('id');
+  const userid = localStorage.getItem("id");
 
   const getdataapi = () => {
     if (!userid) {
-      toast.error('User ID not found in local storage.');
+      toast.error("User ID not found in local storage.");
       return;
     }
-
-    axios.get(`${baseUrl}get_admin_term_condition_admin/${userid}`,{
-      headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    axios
+      .get(`${baseUrl}get_admin_term_condition_admin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
-
-      },
-  })
+        },
+      })
       .then((response) => {
-        if (response.data.Details) {
-          setHeading(response.data.Details.Heading);
-          setDescription12(response.data.Details.Description);
+        const details = response.data.Details?.[0];
+        if (details) {
+          setHeading(details.Heading);
+          setDescription12(details.Description);
         } else {
-          toast.error('No details found in the response.');
+          toast.error("No details found in the response.");
         }
       })
       .catch((error) => {
-        toast.error(error.response.data.message );
+        toast.error(error.response.data.message);
       });
   };
 
@@ -162,21 +162,21 @@ const TermCondition = () => {
       Heading: heading,
       Description: description12, // This will contain the formatted HTML content
     };
-  
-    axios.post(`${baseUrl}create_term_condition/${userid}`, postdata,{
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
 
-      },
-  })
+    axios
+      .post(`${baseUrl}create_term_condition/${userid}`, postdata, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         if (response.data.success) {
           toast.success(response.data.message);
           setHeading(response.data.Details.Heading);
           setDescription12(response.data.Details.Description);
         } else {
-          toast.info('Data posted but no success flag found.');
+          toast.info("Data posted but no success flag found.");
         }
       })
       .catch((error) => {
@@ -195,22 +195,24 @@ const TermCondition = () => {
 
   return (
     <>
-      <div className='main_container'>
+      <div className="main_container">
         <div className="wpWrapper">
           <div className="container-fluid ">
-            <div className='row'>
-              <div className='col-12'>
+            <div className="row">
+              <div className="col-12">
                 <div className="card-text">
                   <div className="App">
-                    <p className='fs-3 fw-bold text-center mt-2'>Terms & Conditions</p>
+                    <p className="fs-3 fw-bold text-center mt-2">
+                      Terms & Conditions
+                    </p>
                     <div className="form-floating mb-3">
-                      <input 
-                        type="text" 
-                        className='w-100 py-2 text-dark bg-white rounded px-2 border' 
-                        value={heading} 
-                        placeholder='heading' 
-                        name='heading' 
-                        onChange={handleHeadingChange} 
+                      <input
+                        type="text"
+                        className="w-100 py-2 text-dark bg-white rounded px-2 border"
+                        value={heading}
+                        placeholder="heading"
+                        name="heading"
+                        onChange={handleHeadingChange}
                       />
                     </div>
                     <CKEditor
@@ -219,12 +221,26 @@ const TermCondition = () => {
                       onChange={handleDescriptionChange}
                       config={{
                         toolbar: [
-                          'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'
-                        ]
+                          "heading",
+                          "|",
+                          "bold",
+                          "italic",
+                          "link",
+                          "bulletedList",
+                          "numberedList",
+                          "blockQuote",
+                          "undo",
+                          "redo",
+                        ],
                       }}
                     />
                     <div className="text-center">
-                      <button onClick={handleGetData} className='w-25 px-3 py-2 btn btn-primary mt-3'>Update</button>
+                      <button
+                        onClick={handleGetData}
+                        className="w-25 px-3 py-2 btn btn-primary mt-3"
+                      >
+                        Update
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -239,7 +255,6 @@ const TermCondition = () => {
 };
 
 export default TermCondition;
-
 
 //  import React, { useEffect, useState } from 'react';
 //  import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -294,7 +309,7 @@ export default TermCondition;
 //        Heading: heading,
 //        Description: description12,
 //      };
-  
+
 //      axios.post(`${baseUrl}create_term_condition/${userid}`, postdata)
 //        .then((response) => {
 //          console.log(response.data.success===true)
@@ -514,8 +529,6 @@ export default TermCondition;
 
 // export default TermCondition;
 
-
-
 // import React, { useEffect, useState } from 'react';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -566,7 +579,7 @@ export default TermCondition;
 //           toast.error('Something went wrong while posting the data.');
 //         }
 //       }).catch((error) => {
-      
+
 //         console.error(error);
 //       });
 //   };

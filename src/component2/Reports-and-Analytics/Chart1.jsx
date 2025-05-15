@@ -40,7 +40,6 @@ const Chart1 = () => {
   };
 
   return (
-
     <div className='mt-3'>
       <Chart options={options} series={series} type="line" width={480} height={320} />
       <p className='mt-3'>Total clients</p>

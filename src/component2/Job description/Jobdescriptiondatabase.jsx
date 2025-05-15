@@ -25,6 +25,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { TbFileTypeDocx } from "react-icons/tb";
+import { PiFileDocBold } from "react-icons/pi";
+import { CgFileDocument } from "react-icons/cg";
+import { PiFileDocFill } from "react-icons/pi";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 const pageSize = 5;
@@ -320,16 +324,16 @@ export default function Jobdescriptiondatabase() {
                           {`http://192.168.1.54:4101/+${item.jobPdf}`}
                         </TableCell> */}
                         <TableCell>
-                          {item.jobPdf ? (
+                          {item.jobWord ? (
                             <a
                               href={
                                 "https://sisccltd.com/hrsolutions/" +
-                                item.jobPdf
+                                item.jobWord
                               }
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              <PictureAsPdfIcon />
+                              <CgFileDocument size={20} />
                             </a>
                           ) : (
                             "_"

@@ -12,6 +12,7 @@ import ResetPassword from "./pages/ResetPassword";
 import OtpGenerate from "./pages/OtpGenrate";
 import FemaleCandidate from "./component2/FemaleCandiadate/FemaleCandidate";
 import Clients from "./component2/Client/Clients";
+import RegisterUser from "./component2/Client/RegisterUser";
 import ATS from "./component2/ATS/ATS";
 // import Pyschometric from "./component2/Pyschometric Testing/Pyschometric";
 import Labourlaw from "./component2/labour law computation/Labourlaw";
@@ -97,8 +98,9 @@ import Packagetype from "./component2/transcition/Packagetype";
 import Permission from "./component2/Permission/Permission";
 import Permission2 from "./component2/Permission/Permission2";
 import BlogComment from "./component2/cms Page/BlogComment";
+
 function App() {
-  console.log("date:23-04-2025,time:12:58");
+  console.log("date:15-05-2025,time:3:00");
   const [text, setText] = useState("");
   return (
     <MyContext.Provider value={{ text, setText }}>
@@ -111,6 +113,7 @@ function App() {
           <Route path="/admin" element={<Protected Component={MainLayout} />}>
             <Route index element={<Dashboard />} />
             <Route path="Female-Candidate" element={<FemaleCandidate />} />
+            {/* <Route path="Clients" element={<RegisterUser />} /> */}
             <Route path="Clients" element={<Clients />} />
             <Route path="Permission" element={<Permission />} />
             <Route path="Permission2" element={<Permission2 />} />

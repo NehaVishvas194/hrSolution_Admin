@@ -23,7 +23,7 @@ import Rating from "react-rating-stars-component";
 import { ArrowBack } from "@mui/icons-material";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
-const pageSize = 6;
+const pageSize = 5;
 export default function Clientdetails() {
   const location = useLocation();
    const [currentPage, setCurrentPage] = useState(1);
@@ -203,7 +203,6 @@ export default function Clientdetails() {
             </TableHead>
             <TableBody>
               {currentdata.map((item, index) => {
-
                 return (
                   <>
                     <TableRow key={index}>
@@ -244,9 +243,7 @@ export default function Clientdetails() {
               })}
             </TableBody>
           </Table>
-          
         )}
-         
       </TableContainer>
       <div className="m-3">
             <button

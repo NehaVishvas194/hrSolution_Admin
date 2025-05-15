@@ -17,17 +17,20 @@ const Privacypolicy = () => {
 
   const getdataapi = () => {
     axios
-      .get(`${baseUrl}get_admin_privacy_policy_admin/${userid}`, {
+      .get(`${baseUrl}get_privacy_policy`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        console.log(response.data.Details);
-        setHeading(response.data.Details.Heading);
-        setDescription12(response.data.Details.Description);
-        console.log(response.data.Details.Description);
+        const details = response.data.Details?.[0];
+        if (details) {
+          setHeading(details.Heading);
+          setDescription12(details.Description);
+        } else {
+          toast.error("No service data found.");
+        }
       })
       .catch((error) => {
         toast.error(error.response.data.message);

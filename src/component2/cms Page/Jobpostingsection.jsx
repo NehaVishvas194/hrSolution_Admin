@@ -317,7 +317,7 @@ export default function Jobpostingsection() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${baseUrl}getJobs_posted_procedure_section1_admin/${userid}`,
+        `${baseUrl}getJobs_posted_procedure_section1_admin`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -326,7 +326,7 @@ export default function Jobpostingsection() {
         }
       );
       console.log(response.data.Details);
-      setData(response.data.Details);
+      setData(response.data.Details[0]);
       // toast.success(response.data.message);
     } catch (error) {
       toast.error("Error fetching data:", error.response.data.message);
@@ -341,10 +341,10 @@ export default function Jobpostingsection() {
     }));
   };
 
-  const handleApi = async () => {
+  const handleApi = async (id) => {
     try {
       const response = await axios.post(
-        `${baseUrl}cms_job_posting_section1/${userid}`,
+        `${baseUrl}cms_job_posting_section1/${id}`,
         {
           Heading: data1.heading,
           Description: data1.description,
@@ -367,6 +367,7 @@ export default function Jobpostingsection() {
 
   const handleOpen = () => {
     setData1({
+      _id: data._id,
       heading: data.Heading || "",
       description: data.Description || "",
     });
@@ -422,7 +423,7 @@ export default function Jobpostingsection() {
               />
               <Button
                 variant="contained"
-                onClick={handleApi}
+                onClick={() => handleApi(data1._id)}
                 style={{
                   backgroundColor: "#2b6166",
                   color: "#ffffff",
@@ -443,7 +444,7 @@ export default function Jobpostingsection() {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow key={userid}>
+              <TableRow>
                 <TableCell>{data.Heading}</TableCell>
                 <TableCell>{data.Description}</TableCell>
               </TableRow>

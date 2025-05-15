@@ -31,7 +31,7 @@ export default function Cmspage3() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${baseUrl}get_cms_post_your_job_admin/${userID}`,
+        `${baseUrl}get_cms_post_your_job_admin`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,7 +39,7 @@ export default function Cmspage3() {
           },
         }
       );
-      setData(response.data.Details);
+      setData(response.data.Details[0]);
     } catch (error) {
       toast.error(error.response.data.message || "Error fetching data");
     }
@@ -52,14 +52,15 @@ export default function Cmspage3() {
     const file = e.target.files[0];
     setFormData((prev) => ({ ...prev, logo: file }));
   };
-  const handleApi = async () => {
+
+  const handleApi = async (id) => {
     const formDataObj = new FormData();
     formDataObj.append("Heading", formData.Heading);
     formDataObj.append("Description", formData.Description);
     formDataObj.append("logo", formData.logo);
     try {
       const response = await axios.post(
-        `${baseUrl}cms_post_your_job_section/${userID}`,
+        `${baseUrl}cms_post_your_job_section/${id}`,
         formDataObj,
         {
           headers: {
@@ -71,6 +72,7 @@ export default function Cmspage3() {
       console.log("Response:", response.data);
       getData();
       setOpen(false);
+      toast.success(response.data.message);
     } catch (error) {
       // console.error('Error posting data:', error.response.data);
       toast.error(error.response.data.message || "Error posting data:");
@@ -78,12 +80,14 @@ export default function Cmspage3() {
   };
   const handleOpen = () => {
     setFormData({
+      _id: data._id,
       Heading: data.Heading || "",
       Description: data.Description || "",
       logo: null,
     });
     setOpen(true);
   };
+
   const handleClose = () => setOpen(false);
   return (
     <div className="container main_container">
@@ -137,7 +141,7 @@ export default function Cmspage3() {
             />
             <Button
               variant="contained"
-              onClick={handleApi}
+              onClick={() => handleApi(formData._id)}
               style={{
                 backgroundColor: "#2b6166",
                 color: "#ffffff",
@@ -159,7 +163,7 @@ export default function Cmspage3() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow key={userID}>
+            <TableRow>
               <TableCell>{data.Heading}</TableCell>
               <TableCell>{data.Description}</TableCell>
               <TableCell>

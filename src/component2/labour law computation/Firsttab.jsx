@@ -265,7 +265,7 @@ export default function Firsttab() {
         </div>
        
           
-          <div className='col-md-6 col-sm-4'>
+          <div className='col-md-6 col-sm-4 mb-4'>
             <button
               className='py-3 btn btn-primary w-100'
               onClick={handleclick}

@@ -39,14 +39,15 @@ export default function ManagePackage() {
         },
       })
       .then((response) => {
+        toast.success(response.data.message);
         getData();
         getData1();
-        toast.success(response.data.message);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
       });
   };
+
   const getData = () => {
     axios
       .get(`${baseUrl}get_allPackages`, {
@@ -56,13 +57,13 @@ export default function ManagePackage() {
         },
       })
       .then((response) => {
-        
         setDatauser1(response.data.weekly_packages);
       })
       .catch((error) => {
         console.log(error.response.data);
       });
   };
+
   const getData1 = () => {
     axios
       .get(`${baseUrl}get_allPackages`, {
@@ -72,13 +73,14 @@ export default function ManagePackage() {
         },
       })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setDatauser(response.data.yearly_packages);
       })
       .catch((error) => {
         console.log(error.response.data);
       });
   };
+
   useEffect(() => {
     getData();
     getData1();
@@ -92,10 +94,11 @@ export default function ManagePackage() {
     setIsEditingYearly(isYearly);
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setEditData({});
-    setIsEditingYearly(null); 
+    setIsEditingYearly(null);
   };
 
   const handleChangeUpdateData = (e) => {

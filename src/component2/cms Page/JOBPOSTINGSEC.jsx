@@ -161,7 +161,7 @@ export default function JOBPOSTINGSEC() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${baseUrl}get_cms_need_any_job_section_admin/${userID}`,
+        `${baseUrl}get_cms_need_any_job_section_admin`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -169,7 +169,7 @@ export default function JOBPOSTINGSEC() {
           },
         }
       );
-      setData(response.data.Details);
+      setData(response.data.Details[0]);
     } catch (error) {
       // console.error('Error fetching data:', error.response.data);
       toast.error(error.response.data.message || "Error fetching data");
@@ -186,14 +186,14 @@ export default function JOBPOSTINGSEC() {
     setFormData((prev) => ({ ...prev, logo: file }));
   };
 
-  const handleApi = async () => {
+  const handleApi = async (id) => {
     const formDataObj = new FormData();
     formDataObj.append("Heading", formData.Heading);
     formDataObj.append("Description", formData.Description);
     formDataObj.append("logo", formData.logo);
     try {
       const response = await axios.post(
-        `${baseUrl}cms_need_any_job_section/${userID}`,
+        `${baseUrl}cms_need_any_job_section/${id}`,
         formDataObj,
         {
           headers: {
@@ -213,6 +213,7 @@ export default function JOBPOSTINGSEC() {
 
   const handleOpen = () => {
     setFormData({
+      _id: data._id,
       Heading: data.Heading || "",
       Description: data.Description || "",
       logo: null, // Reset logo file as it's not needed here
@@ -274,7 +275,7 @@ export default function JOBPOSTINGSEC() {
             />
             <Button
               variant="contained"
-              onClick={handleApi}
+              onClick={() => handleApi(formData._id)}
               style={{
                 backgroundColor: "#2b6166",
                 color: "#ffffff",
@@ -296,7 +297,7 @@ export default function JOBPOSTINGSEC() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow key={userID}>
+            <TableRow>
               <TableCell>{data.Heading}</TableCell>
               <TableCell>{data.Description}</TableCell>
               <TableCell>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   TableContainer,
   Table,
@@ -14,24 +14,27 @@ import {
   Modal,
   Box,
   Typography,
-  TextField
-} from '@mui/material';
+  TextField,
+} from "@mui/material";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { baseUrl } from '../../features/Api/BaseUrl';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { baseUrl } from "../../features/Api/BaseUrl";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import TablePagination from "@mui/material/TablePagination";
+import Swal from "sweetalert2";
+
 export default function FixitFinder() {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
   const [data, setData] = useState([]);
-  const [description, setDescription] = useState('');
-  const [heading, setHeading] = useState('');
+  const [description, setDescription] = useState("");
+  const [heading, setHeading] = useState("");
   const [image, setImage] = useState(null);
-  const [desc1, setDesc1] = useState('');
+  const [desc1, setDesc1] = useState("");
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,17 +61,21 @@ export default function FixitFinder() {
   };
 
   const handleSubmit = async () => {
+    const userData = localStorage.getItem("id");
     try {
-      const response = await axios.post(`${baseUrl}fixit_finder`, {
-        job_title: input1,
-        company_location: input2,
-      }, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-
+      const response = await axios.post(
+        `${baseUrl}fixit_finder`,
+        {
+          job_title: input1,
+          company_location: input2,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setData(response.data.details);
     } catch (error) {
       // toast.error('Data Not Found');
@@ -76,83 +83,117 @@ export default function FixitFinder() {
     }
   };
 
+  const userData = localStorage.getItem("id");
+  console.log(userData);
+
+  const fetchDataApi = () => {
+    axios
+      .get(`${baseUrl}getService_admin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const details = response.data.Details?.[0];
+        if (details) {
+          setHeading(details.Heading || "");
+          setDesc1(details.Description1 || "");
+          setDescription(details.Description || "");
+          setImage(details.image || null);
+        } else {
+          toast.error("No service data found.");
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          error.response?.data?.message || "Failed to fetch service data"
+        );
+      });
+  };
+
+  const handleclick = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${baseUrl}delete_fixit_finder/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            fetchDataApi();
+            toast.success(response.data.message);
+          })
+          .catch((error) => {
+            toast.error(error.response.data.message);
+          });
+      }
+    });
+  };
+
   useEffect(() => {
     fetchDataApi();
   }, []);
 
-  const userData = localStorage.getItem('id');
-  console.log(userData);
-  const fetchDataApi = () => {
-    const userData = localStorage.getItem('id');
-    axios
-      .get(`${baseUrl}getService_admin/${userData}`, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-
-        },
-      })
-      .then((response) => {
-        const details = response.data.Details;
-        setHeading(details.Heading);
-        setDesc1(details.Description1);
-        setDescription(details.Description);
-        setImage(details.image);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
-  };
-
   const handleGetData = () => {
     const formData = new FormData();
-    formData.append('Heading', heading);
-    formData.append('Description', description);
-    formData.append('Description1', desc1);
+    formData.append("Heading", heading);
+    formData.append("Description", description);
+    formData.append("Description1", desc1);
     if (image) {
-      formData.append('image', image);
+      formData.append("image", image);
     }
     axios
-      .post(`${baseUrl}create_services/${userData}`, formData,
+      .post(
+        `${baseUrl}create_services/${userData}`,
+        formData,
 
         {
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-             
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        })
+        }
+      )
       .then((response) => {
         toast.success(response.data.message);
       })
       .catch((error) => {
         if (error.response) {
-          console.log('Error response:', error.response);
+          console.log("Error response:", error.response);
           toast.error(error.response.data.errors[0].msg);
         } else {
-          console.log('Error message:', error.message);
-          toast.error('Internal Server Error');
+          console.log("Error message:", error.message);
+          toast.error("Internal Server Error");
         }
       });
   };
 
   const handleclickdownload = async () => {
     try {
-      const response = await axios.get(`${baseUrl}generate_sampleFile`,
-
+      const response = await axios.get(
+        `${baseUrl}generate_sampleFile`,
         {
-          responseType: 'blob',
+          responseType: "blob",
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
-
           },
         }
         // Important
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', 'sampleFile.xlsx'); // Specify the file name
+      link.setAttribute("download", "sampleFile.xlsx"); // Specify the file name
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -169,35 +210,38 @@ export default function FixitFinder() {
 
   const handleUpload = () => {
     const formData = new FormData();
-    formData.append('file', file);
-    console.log(file)
-    axios.post(`${baseUrl}import_file`, formData,{
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        // "Content-Type": "multipart/form-data",
-      },
-    }).then((response) => {
-      console.log(response)
-      if(response.status ===200){
-        toast.success(response.data.message)
-      }
-    
-      setOpen(false)
-    }).catch((error) => {
-      // alert(error)
-      console.log(error.response.data.error)
-      // toast.error(error.response.data)
-      toast.error(error.response.data.error);
-    })
+    formData.append("file", file);
+    console.log(file);
+    axios
+      .post(`${baseUrl}import_file`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          toast.success(response.data.message);
+        }
+
+        setOpen(false);
+      })
+      .catch((error) => {
+        // alert(error)
+        console.log(error.response.data.error);
+        // toast.error(error.response.data)
+        toast.error(error.response.data.error);
+      });
   };
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
   };
@@ -244,7 +288,7 @@ export default function FixitFinder() {
               </div> */}
               <CKEditor
                 editor={ClassicEditor}
-                data={description}
+                data={description || ""}
                 onChange={(event, editor) => {
                   const newData = editor.getData();
                   setDescription(newData);
@@ -297,47 +341,55 @@ export default function FixitFinder() {
               </Button>
             </div>
           </div>
-          {data.length > 0 && <>
-            <TableContainer component={Paper} className="mt-3">
-              <Table>
-                <TableHead>
-                <TableRow style={{ "white-space": "nowrap" }}>
-                  <TableCell align="left" style={{ minWidth: "80px" }}>
-                    Sr. No.
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "60px" }}>
-                  Full Name
-                  </TableCell>
+          {data.length > 0 && (
+            <>
+              <TableContainer component={Paper} className="mt-3">
+                <Table>
+                  <TableHead>
+                    <TableRow style={{ "white-space": "nowrap" }}>
+                      <TableCell align="left" style={{ minWidth: "80px" }}>
+                        Sr. No.
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "60px" }}>
+                        Full Name
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "85px" }}>
+                        Mobile No. 1
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "85px" }}>
+                        Mobile No. 2
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "100px" }}>
+                        Gender
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "100px" }}>
+                        Business Name
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "100px" }}>
+                        Home Address
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        style={{ minWidth: "95px", "white-space": "nowrap" }}
+                      >
+                        Title
+                      </TableCell>
+                      <TableCell align="left" style={{ minWidth: "85px" }}>
+                        Location in Sierra Leone
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        style={{ minWidth: "95px", "white-space": "nowrap" }}
+                      >
+                        Action
+                      </TableCell>
 
-                  <TableCell align="left" style={{ minWidth: "100px" }}>
-                  Gender
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "100px" }}>
-                  Home Address
-
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "85px" }}>
-                  Location in Sierra Leone
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "85px" }}>
-                  Mobile Number
-                  </TableCell>
-
-                  <TableCell align="left" style={{ minWidth: "95px", "white-space": "nowrap" }}>
-                  Applicable
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "95px", "white-space": "nowrap" }}>
-                  other
-                  </TableCell>
-
-
-                  {/* <TableCell align="left" style={{ minWidth: "100px" }}>
+                      {/* <TableCell align="left" style={{ minWidth: "100px" }}>
                     Status
                   </TableCell> */}
-
-                </TableRow>
-                </TableHead>
-                {/* <TableBody>
+                    </TableRow>
+                  </TableHead>
+                  {/* <TableBody>
                   {data &&
                     data.length > 0 &&
                     data.map((item, index) => (
@@ -351,58 +403,63 @@ export default function FixitFinder() {
                       </TableRow>
                     ))}
                 </TableBody> */}
-             <TableBody>
-                {data
-                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, i) => {
-
-
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.code}
-
-                      >
-                        <TableCell align="left">{i + 1}</TableCell>
-                        <TableCell>{row.Full_Name}</TableCell>
-
-                        <TableCell align="left">
-                          {" "}
-                          {row.Gender}
-                          {/* {row.job_experience.length > 20 ? `${row.job_experience.substring(0, 18)}...` : row.job_experience} */}
-                        </TableCell>
-                        <TableCell align="left">
-                          {row.Home_Address
-                            ? (row.Home_Address)
-                            : "_"}
-                        </TableCell>
-                        <TableCell align="left">{row.Location_in_Sierra_Leone}</TableCell>
-
-
-
-                        <TableCell align="left">
-                          {row.Mobile_Number}
-                        </TableCell>
-                        <TableCell>{row.applicable}</TableCell>
-                        <TableCell>{row.other}</TableCell>
-
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-               
-              </Table>
-              <TablePagination
-              component="div"
-              count={data.length}
-              page={page}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-              {/* <div className="m-3">
+                  <TableBody>
+                    {data
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row, i) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.code}
+                          >
+                            <TableCell align="left">{i + 1}</TableCell>
+                            <TableCell>{row.Full_Name}</TableCell>
+                            <TableCell align="left">
+                              {row.Mobile_Number}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.Mobile_Number_2}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.Gender}
+                              {/* {row.job_experience.length > 20 ? `${row.job_experience.substring(0, 18)}...` : row.job_experience} */}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.Business_Name}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.Home_Address ? row.Home_Address : "_"}
+                            </TableCell>
+                            <TableCell align="left">{row.applicable}</TableCell>
+                            <TableCell align="left">
+                              {row.Location_in_Sierra_Leone}
+                            </TableCell>
+                            <TableCell>
+                              <DeleteIcon
+                                className="text-danger"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => handleclick(row._id)}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+                <TablePagination
+                  component="div"
+                  count={data.length}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+                {/* <div className="m-3">
                 <button
                   disabled={currentPage === 1}
                   className="p-1 rounded pagePre"
@@ -419,9 +476,9 @@ export default function FixitFinder() {
                   <SkipNextIcon />
                 </button>
               </div> */}
-            </TableContainer>
-          </>}
-
+              </TableContainer>
+            </>
+          )}
         </div>
         <ToastContainer />
       </div>
@@ -440,8 +497,8 @@ export default function FixitFinder() {
             type="file"
             accept=".xlsx, .xls"
             onChange={handleFileChange}
-            className='border px-3 py-2'
-            style={{ marginTop: '16px', marginBottom: '16px' }}
+            className="border px-3 py-2"
+            style={{ marginTop: "16px", marginBottom: "16px" }}
           />
           <Button onClick={handleUpload} variant="contained" color="primary">
             Upload

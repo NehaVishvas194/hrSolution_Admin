@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/super_admin/static/css/main.55eccf9c.css",
-    "main.js": "/super_admin/static/js/main.ade95818.js",
+    "main.js": "/super_admin/static/js/main.c318c558.js",
     "static/media/loginBg.jpeg": "/super_admin/static/media/loginBg.686a3a76da034d6c611b.jpeg",
     "static/media/smart-start-sl-ltd-SLOGAN.png": "/super_admin/static/media/smart-start-sl-ltd-SLOGAN.5fbbe8b436c48230b04f.png",
     "static/media/mainlogo.jpg": "/super_admin/static/media/mainlogo.e19f5a9035e1d2cce2ee.jpg",
     "static/media/logoSm.png": "/super_admin/static/media/logoSm.990a1a2e6ba56a4d3e39.png",
     "index.html": "/super_admin/index.html",
     "main.55eccf9c.css.map": "/super_admin/static/css/main.55eccf9c.css.map",
-    "main.ade95818.js.map": "/super_admin/static/js/main.ade95818.js.map"
+    "main.c318c558.js.map": "/super_admin/static/js/main.c318c558.js.map"
   },
   "entrypoints": [
     "static/css/main.55eccf9c.css",
-    "static/js/main.ade95818.js"
+    "static/js/main.c318c558.js"
   ]
 }
